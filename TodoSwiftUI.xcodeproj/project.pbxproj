@@ -14,6 +14,14 @@
 		BD1663E72B1CE24A0090BCC6 /* TodoSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1663E62B1CE24A0090BCC6 /* TodoSwiftUITests.swift */; };
 		BD1663F12B1CE24A0090BCC6 /* TodoSwiftUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1663F02B1CE24A0090BCC6 /* TodoSwiftUIUITests.swift */; };
 		BD1663F32B1CE24A0090BCC6 /* TodoSwiftUIUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1663F22B1CE24A0090BCC6 /* TodoSwiftUIUITestsLaunchTests.swift */; };
+		BD3E81DC2B2B5B740075F5B2 /* ColorPalette.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD3E81DB2B2B5B740075F5B2 /* ColorPalette.xcassets */; };
+		BD3E81DE2B2B5B840075F5B2 /* UIColor+ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3E81DD2B2B5B840075F5B2 /* UIColor+ColorPalette.swift */; };
+		BD3E81E12B2B710C0075F5B2 /* MainButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3E81E02B2B710C0075F5B2 /* MainButtonView.swift */; };
+		BD744DFE2B2A071400BEB196 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD744DFD2B2A071400BEB196 /* MainContentView.swift */; };
+		BD744E022B2A078400BEB196 /* ListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD744E012B2A078300BEB196 /* ListContentView.swift */; };
+		BD744E062B2A169500BEB196 /* PetShopAnimationPackage in Frameworks */ = {isa = PBXBuildFile; productRef = BD744E052B2A169500BEB196 /* PetShopAnimationPackage */; };
+		BD744E082B2A176100BEB196 /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD744E072B2A176100BEB196 /* AnimationView.swift */; };
+		BD744E0D2B2A1A6A00BEB196 /* ani-todo-check.json in Resources */ = {isa = PBXBuildFile; fileRef = BD744E0C2B2A1A6A00BEB196 /* ani-todo-check.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +52,13 @@
 		BD1663EC2B1CE24A0090BCC6 /* TodoSwiftUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoSwiftUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD1663F02B1CE24A0090BCC6 /* TodoSwiftUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSwiftUIUITests.swift; sourceTree = "<group>"; };
 		BD1663F22B1CE24A0090BCC6 /* TodoSwiftUIUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSwiftUIUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BD3E81DB2B2B5B740075F5B2 /* ColorPalette.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorPalette.xcassets; sourceTree = "<group>"; };
+		BD3E81DD2B2B5B840075F5B2 /* UIColor+ColorPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorPalette.swift"; sourceTree = "<group>"; };
+		BD3E81E02B2B710C0075F5B2 /* MainButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonView.swift; sourceTree = "<group>"; };
+		BD744DFD2B2A071400BEB196 /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
+		BD744E012B2A078300BEB196 /* ListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContentView.swift; sourceTree = "<group>"; };
+		BD744E072B2A176100BEB196 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
+		BD744E0C2B2A1A6A00BEB196 /* ani-todo-check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ani-todo-check.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD744E062B2A169500BEB196 /* PetShopAnimationPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +110,10 @@
 		BD1663D42B1CE2470090BCC6 /* TodoSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				BD3E81DF2B2B6DBE0075F5B2 /* UIComponents */,
+				BD3E81DA2B2B5B2B0075F5B2 /* ColorPalette */,
+				BD744E0A2B2A1A4F00BEB196 /* Resources */,
+				BD744DFB2B2A06CF00BEB196 /* Scenes */,
 				BD1663D52B1CE2470090BCC6 /* TodoSwiftUIApp.swift */,
 				BD1663D72B1CE2470090BCC6 /* ContentView.swift */,
 				BD1663D92B1CE24A0090BCC6 /* Assets.xcassets */,
@@ -127,6 +147,73 @@
 			path = TodoSwiftUIUITests;
 			sourceTree = "<group>";
 		};
+		BD3E81DA2B2B5B2B0075F5B2 /* ColorPalette */ = {
+			isa = PBXGroup;
+			children = (
+				BD3E81DD2B2B5B840075F5B2 /* UIColor+ColorPalette.swift */,
+				BD3E81DB2B2B5B740075F5B2 /* ColorPalette.xcassets */,
+			);
+			path = ColorPalette;
+			sourceTree = "<group>";
+		};
+		BD3E81DF2B2B6DBE0075F5B2 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				BD3E81E02B2B710C0075F5B2 /* MainButtonView.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		BD744DFB2B2A06CF00BEB196 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				BD744E032B2A0E3800BEB196 /* Task */,
+				BD744E002B2A077100BEB196 /* List */,
+				BD744DFC2B2A06D600BEB196 /* Main */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		BD744DFC2B2A06D600BEB196 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				BD744DFD2B2A071400BEB196 /* MainContentView.swift */,
+				BD744E072B2A176100BEB196 /* AnimationView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		BD744E002B2A077100BEB196 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				BD744E012B2A078300BEB196 /* ListContentView.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		BD744E032B2A0E3800BEB196 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		BD744E0A2B2A1A4F00BEB196 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BD744E0B2B2A1A5900BEB196 /* Main */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BD744E0B2B2A1A5900BEB196 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				BD744E0C2B2A1A6A00BEB196 /* ani-todo-check.json */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +230,9 @@
 			dependencies = (
 			);
 			name = TodoSwiftUI;
+			packageProductDependencies = (
+				BD744E052B2A169500BEB196 /* PetShopAnimationPackage */,
+			);
 			productName = TodoSwiftUI;
 			productReference = BD1663D22B1CE2470090BCC6 /* TodoSwiftUI.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +305,9 @@
 				Base,
 			);
 			mainGroup = BD1663C92B1CE2470090BCC6;
+			packageReferences = (
+				BD744E042B2A169500BEB196 /* XCRemoteSwiftPackageReference "petshopanimationpackage" */,
+			);
 			productRefGroup = BD1663D32B1CE2470090BCC6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,6 +326,8 @@
 			files = (
 				BD1663DD2B1CE24A0090BCC6 /* Preview Assets.xcassets in Resources */,
 				BD1663DA2B1CE24A0090BCC6 /* Assets.xcassets in Resources */,
+				BD744E0D2B2A1A6A00BEB196 /* ani-todo-check.json in Resources */,
+				BD3E81DC2B2B5B740075F5B2 /* ColorPalette.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,8 +352,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD744E022B2A078400BEB196 /* ListContentView.swift in Sources */,
+				BD3E81DE2B2B5B840075F5B2 /* UIColor+ColorPalette.swift in Sources */,
+				BD744E082B2A176100BEB196 /* AnimationView.swift in Sources */,
+				BD3E81E12B2B710C0075F5B2 /* MainButtonView.swift in Sources */,
 				BD1663D82B1CE2470090BCC6 /* ContentView.swift in Sources */,
 				BD1663D62B1CE2470090BCC6 /* TodoSwiftUIApp.swift in Sources */,
+				BD744DFE2B2A071400BEB196 /* MainContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +688,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BD744E042B2A169500BEB196 /* XCRemoteSwiftPackageReference "petshopanimationpackage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://gitlab.com/marcelomogrovejo/petshopanimationpackage.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BD744E052B2A169500BEB196 /* PetShopAnimationPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD744E042B2A169500BEB196 /* XCRemoteSwiftPackageReference "petshopanimationpackage" */;
+			productName = PetShopAnimationPackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BD1663CA2B1CE2470090BCC6 /* Project object */;
 }
