@@ -1,11 +1,11 @@
 //
-//  UIColor+ColorPalette.swift
+//  Color+ColorPalette.swift
 //  ListPostsMVP
 //
 //  Created by Marcelo Mogrovejo on 10/02/2023.
 //
 
-import UIKit
+import SwiftUI
 
 /**
  Color palette from: https://coolors.co/272727-fed766-009fb7-696773-eff1f3
@@ -15,44 +15,50 @@ import UIKit
     - #696773
     - #EFF1F3
 */
-extension UIColor {
-
+extension Color {
+    
     struct Background {
-        static let defaultBackgroundColor = UIColor(named: "bkg-default-color")
+        static let defaultBackgroundColor: Color = Color("bkg-default-color")
     }
-
+    
     struct Text {
-        static let highlitedColor = UIColor(named: "txt-highlited-color")
-        static let defaultColor = UIColor(named: "txt-default-color")
+        static let highlitedColor: Color = Color("txt-highlited-color")
+        static let defaultColor: Color = Color("txt-default-color")
     }
-
+    
     struct TextField {
-        static let textColor = UIColor(named: "txt-field-text-color")
-        static let placeholderColor = UIColor(named: "txt-field-placeholder-color")
-        static let backgroundColor = UIColor(named: "txt-field-background-color")
-        static let containerBackgrounColor = UIColor(named: "txt-container-background-color")
+        static let textColor: Color = Color("txt-field-text-color")
+        static let placeholderColor: Color = Color("txt-field-placeholder-color")
+        static let backgroundColor: Color = Color("txt-field-background-color")
+        static let containerBackgrounColor: Color = Color("txt-container-background-color")
     }
-
+    
     struct Progress {
-        static let mainBackgroundColor = UIColor(named: "prg-main-bkg-color")
-        static let backgroundColor = UIColor(named: "prg-bkg-color")
-        static let messageColor = UIColor(named: "prg-message-color")
+        static let mainBackgroundColor: Color = Color("prg-main-bkg-color")
+        static let backgroundColor: Color = Color("prg-bkg-color")
+        static let messageColor: Color = Color("prg-message-color")
     }
-
+    
     struct Popup {
-        static let mainBackgroundColor = UIColor(named: "pp-main-bkg-color")
-        static let backgroundColor = UIColor(named: "pp-bkg-color")
-        static let titleColor = UIColor(named: "pp-title-color")
-        static let messageColor = UIColor(named: "pp-message-color")
+        static let mainBackgroundColor: Color = Color("pp-main-bkg-color")
+        static let backgroundColor: Color = Color("pp-bkg-color")
+        static let titleColor: Color = Color("pp-title-color")
+        static let messageColor: Color = Color("pp-message-color")
     }
-
+    
     struct Button {
-        static let backgroundColor = UIColor(named: "btn-bkg-color")
-        static let foregroundColor = UIColor(named: "btn-fgd-color")
+        static let backgroundColor: Color = Color("btn-bkg-color")
+        static let foregroundColor: Color = Color("btn-fgd-color")
+        static let removeBackgroundColor: Color = Color("btn-delete-bkg-color")
+        static let editBackgroundColor: Color = Color("btn-edit-bkg-color")
     }
-
+    
     struct NavBar {
-        static let backgroundColor = UIColor(named: "bkg-nav-bar-default-color")
+        static let backgroundColor: Color = Color("bkg-nav-bar-default-color")
+    }
+    
+    struct Toggle {
+        static let backgroundColor: Color = Color("stch-bkg-color")
     }
 
 }

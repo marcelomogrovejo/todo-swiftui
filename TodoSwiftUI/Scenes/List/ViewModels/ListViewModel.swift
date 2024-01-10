@@ -43,11 +43,11 @@ class ListViewModel: ObservableObject, ListViewModelProtocol {
                                                       description: domainTask.description,
                                                       isComplete: domainTask.isCompleted)
                     tempTaskArr.append(listDataModel)
+                    print("\(domainTask.title) \(domainTask.isCompleted)")
                 } else {
                     print("Error bad item id, item won't be added to the list.")
                 }
             }
-//            self.tasks.removeAll()
             self.tasks = tempTaskArr.sorted(by: { $0.date.compare($1.date) == .orderedDescending })
         } catch {
             print("Error \(error.localizedDescription)")
@@ -77,9 +77,34 @@ class ListViewModel: ObservableObject, ListViewModelProtocol {
             print("Error \(error.localizedDescription)")
         }
     }
-    
+
+    @MainActor
     func completeTask(_ task: ListDataModel) async throws {
-        // TODO: implement !
+        do {
+            let domainItemToComplete = DomainTodoTask(id: task.id.uuidString,
+                                                      avatar: task.avatar ?? "",
+                                                      username: task.username,
+                                                      title: task.title,
+                                                      date: task.date.fullFormattedDate,
+                                                      description: task.description,
+                                                      isCompleted: true)
+            let completedDomainItem = try await apiService.completeTaskAsync(domainItemToComplete)
+            guard let taskToRefreshIndex = tasks.firstIndex(of: task) else {
+                print("Error task to delete not found")
+                return
+            }
+            tasks.remove(at: taskToRefreshIndex)
+            let completedListItemModel = ListDataModel(id: UUID(uuidString: completedDomainItem.id)!,
+                                                       avatar: completedDomainItem.avatar,
+                                                       username: completedDomainItem.username,
+                                                       title: completedDomainItem.title,
+                                                       date: completedDomainItem.date.stringyfiedFullDate,
+                                                       description: completedDomainItem.description,
+                                                       isComplete: completedDomainItem.isCompleted)
+            tasks.insert(completedListItemModel, at: taskToRefreshIndex)
+        } catch {
+            print("Error \(error.localizedDescription)")
+        }
     }
 
     // MARK: - Mocks

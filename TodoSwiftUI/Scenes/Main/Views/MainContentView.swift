@@ -24,8 +24,6 @@ struct MainContentView: View {
                 Spacer()
 
                 MainButtonView {
-                    print("Tapped !!")
-
                     self.showList.toggle()
                 }
                 .sheet(isPresented: $showList) {

@@ -34,8 +34,8 @@ struct MainButtonView: View {
                 .overlay(RoundedRectangle(cornerRadius: Constants.buttonCorner)
                     .stroke(Color.white, lineWidth: 0)
                 )
-                .background(Color(.Button.backgroundColor ?? .systemGray))
-                .foregroundColor(Color(.Button.foregroundColor ?? .systemGray))
+                .background(Color.Button.backgroundColor)
+                .foregroundColor(Color.Button.foregroundColor)
         }
         .buttonStyle(.borderless)
         .cornerRadius(Constants.buttonCorner)

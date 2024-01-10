@@ -43,10 +43,17 @@ struct TaskContentView: View {
                                in: Date.now..., displayedComponents: .date) {
                         Text("Date")
                     }
-                    // TODO: figure out if 'in: Date.now...' is a UX correct behaviour
                     DatePicker(selection: $taskViewModel.taskDataModel.time,
-                               in: Date.now..., displayedComponents: .hourAndMinute) {
+                               displayedComponents: .hourAndMinute) {
                         Text("Time")
+                    }
+                }
+
+                if let _ = taskId {
+                    Section {
+                        Toggle("Complete task?", isOn: $taskViewModel.taskDataModel.isDone)
+                            .toggleStyle(SwitchToggleStyle(tint: Color.Toggle.backgroundColor))
+                            .disabled(taskViewModel.taskDataModel.isDone)
                     }
                 }
             }
@@ -58,7 +65,7 @@ struct TaskContentView: View {
                     Button("Cancel") {
                         self.dismiss()
                     }
-                    .tint(Color(.Button.foregroundColor ?? .systemBlue))
+                    .tint(Color.Button.foregroundColor)
                 }
                 // Right side button: Save
                 ToolbarItem(placement: .topBarTrailing) {
@@ -77,12 +84,12 @@ struct TaskContentView: View {
                             }
                         }
                     }
-                    .tint(Color(.Button.foregroundColor ?? .systemBlue))
+                    .tint(Color.Button.foregroundColor)
                     .disabled(taskViewModel.taskDataModel.title.isEmpty ||
                               taskViewModel.taskDataModel.description.isEmpty)
                 }
             }
-            .toolbarBackground(Color(.NavBar.backgroundColor ?? .white), 
+            .toolbarBackground(Color.NavBar.backgroundColor, 
                                for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .alert("Your task has been \(taskId != nil ? "updated" : "added").", isPresented: $taskViewModel.success) {
