@@ -73,7 +73,19 @@ class TaskViewModel: ObservableObject, TaskViewModelProtocol {
         
     }
 
-//    @MainActor
+    @MainActor
+    func getTaskBy(id: String) async throws {
+        do {
+            let domainItem = try await apiService.getOneAsync(id: id)
+            print("task completed? \(domainItem.isCompleted)")
+            self.taskDataModel = convertFrom(domaintTodoTask: domainItem)
+        } catch {
+            print("Error \(error.localizedDescription)")
+        }
+    }
+
+    // MARK: - Private methods
+
     private func addTask(_ domainTask: DomainTodoTask) async throws -> TaskDataModel {
         do {
             let domainTodoTask = try await apiService.newAsync(domainTask)
@@ -84,7 +96,6 @@ class TaskViewModel: ObservableObject, TaskViewModelProtocol {
         }
     }
 
-//    @MainActor
     private func updateTask(_ domainTask: DomainTodoTask) async throws -> TaskDataModel {
         do {
             let domainTodoTask = try await apiService.updateAsync(domainTask)
@@ -95,19 +106,8 @@ class TaskViewModel: ObservableObject, TaskViewModelProtocol {
         }
     }
 
-    @MainActor
-    func getTaskBy(id: String) async throws {
-        do {
-            let domainItem = try await apiService.getOneAsync(id: id)
-            self.taskDataModel = convertFrom(domaintTodoTask: domainItem)
-        } catch {
-            print("Error \(error.localizedDescription)")
-        }
-    }
 
-    // MARK: - Private methods
-
-    func convertFrom(domaintTodoTask: DomainTodoTask) -> TaskDataModel {
+    private func convertFrom(domaintTodoTask: DomainTodoTask) -> TaskDataModel {
         // TODO: split date and time !
         return TaskDataModel(date: domaintTodoTask.date,
                              time: domaintTodoTask.date,
