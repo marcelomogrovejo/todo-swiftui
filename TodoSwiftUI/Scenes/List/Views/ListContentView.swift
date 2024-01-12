@@ -17,33 +17,43 @@ struct ListContentView: View {
     @State private var itemToRemove: ListDataModel? = nil
     @State private var showAddTask = false
     @State private var presentedTask: ListDataModel? = nil
+    @State private var showNotCompletedOnly: Bool = false
+
+    // Filter completed tasks
+    var tasks: [ListDataModel] {
+        if showNotCompletedOnly {
+            return listViewModel.tasks.filter { !$0.isComplete }
+        } else {
+            return listViewModel.tasks
+        }
+    }
 
     var body: some View {
         NavigationStack {
             List {
-                ForEach($listViewModel.tasks) { $task in
-                    TaskRowView(tableViewData: $task)
-                    .swipeActions(allowsFullSwipe: false) {
+                ForEach(tasks.indices, id: \.self) { idx in
+                    TaskRowView(taskIdx: idx)
+                        .swipeActions(allowsFullSwipe: false) {
                         /**
                          (role: .destructive) triggers the cell removing effect, so we can se a cell vanishing meanwhile the alert is shown.
                          Then the cell appear suddenly behind the alert giving a bad user experience effect.
                          Figure out how to trigger this destructive effect when we confirm deletion through alert.
                          */
-                        Button/*(role: .destructive)*/ {
-                            self.itemToRemove = task
-                            self.showDeleteConfirmationAlert = true
-                        } label: {
-                            Label("Delete", systemImage: "trash.fill")
+                            Button/*(role: .destructive)*/ {
+                                self.itemToRemove = tasks[idx]
+                                self.showDeleteConfirmationAlert = true
+                            } label: {
+                                Label("Delete", systemImage: "trash.fill")
+                            }
+                            .tint(.Button.removeBackgroundColor)
+
+                            Button {
+                                self.presentedTask = tasks[idx]
+                            } label: {
+                                Label("Edit", systemImage: "square.and.pencil")
+                            }
+                            .tint(.Button.editBackgroundColor)
                         }
-                        .tint(.Button.removeBackgroundColor)
-                        
-                        Button {
-                            self.presentedTask = task
-                        } label: {
-                            Label("Edit", systemImage: "square.and.pencil")
-                        }
-                        .tint(.Button.editBackgroundColor)
-                    }
                 }
             }
             .environmentObject(listViewModel)
@@ -76,7 +86,19 @@ struct ListContentView: View {
                     })
                     .tint(Color.Button.foregroundColor)
                 }
-                // Add new taak
+                // Filter completed tasks
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showNotCompletedOnly.toggle()
+                    } label: {
+                        Label(
+                            title: { },
+                            icon: { Image(systemName: showNotCompletedOnly ? "checkmark.circle.fill" : "checkmark.circle") }
+                        )
+                    }
+                    .tint(Color.Button.foregroundColor)
+                }
+                // Add new task
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         showAddTask = true
@@ -127,8 +149,13 @@ struct ListContentView: View {
                 }), secondaryButton: .cancel(Text("Cancel")))
             }
             .overlay {
-                // TODO: implement empty list content
+                // Available on iOS 17.x
                 // https://www.avanderlee.com/swiftui/contentunavailableview-handling-empty-states/
+                if tasks.isEmpty {
+                    ContentUnavailableView {
+                        Label("No uncompleted tasks.", systemImage: "checklist.checked")
+                    }
+                }
             }
         }
     }

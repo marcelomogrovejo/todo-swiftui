@@ -77,7 +77,6 @@ class TaskViewModel: ObservableObject, TaskViewModelProtocol {
     func getTaskBy(id: String) async throws {
         do {
             let domainItem = try await apiService.getOneAsync(id: id)
-            print("task completed? \(domainItem.isCompleted)")
             self.taskDataModel = convertFrom(domaintTodoTask: domainItem)
         } catch {
             print("Error \(error.localizedDescription)")

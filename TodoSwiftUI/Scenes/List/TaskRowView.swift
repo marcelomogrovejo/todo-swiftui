@@ -21,7 +21,11 @@ struct TaskRowView: View {
 
     @EnvironmentObject var listViewModel: ListViewModel
 
-    @Binding var tableViewData: ListDataModel
+//    @Binding var tableViewData: ListDataModel
+    var taskIdx: Int
+    private var task: ListDataModel {
+        listViewModel.tasks[taskIdx]
+    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -34,11 +38,11 @@ struct TaskRowView: View {
                            alignment: .topLeading)
 
                 VStack(alignment: .leading) {
-                    Text(tableViewData.title)
+                    Text(task.title)
                         .font(.caption)
                         .bold()
                         .foregroundStyle(Color.Text.highlitedColor)
-                    Text(tableViewData.date)
+                    Text(task.date)
                         .font(.subheadline)
                         .bold()
                         .foregroundStyle(Color.Text.defaultColor)
@@ -50,22 +54,22 @@ struct TaskRowView: View {
                  How to bind between parent/child, List/Row
                  https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-list-or-a-foreach-from-a-binding
                  */
-                RadioButton(isSet: $tableViewData.isComplete, size: 25)
+                RadioButton(isSet: $listViewModel.tasks[taskIdx].isComplete, size: 25)
                     .frame(width: Constants.defaultAvatarWidth)
-                    .onChange(of: tableViewData.isComplete) {
+                    .onChange(of: task.isComplete) {
                         Task {
                             do {
-                                try await self.listViewModel.completeTask(tableViewData)
+                                try await self.listViewModel.completeTask(self.task)
                             } catch {
                                 // TODO: implement error handling
-                                print(error.localizedDescription)
+                                print("Error: \(error.localizedDescription)")
                             }
                         }
                     }
-                    .disabled(tableViewData.isComplete)
+                    .disabled(task.isComplete)
             }
 
-            Text(tableViewData.description)
+            Text(task.description)
                 .font(.headline)
                 .foregroundStyle(Color.Text.defaultColor)
         }
@@ -80,6 +84,6 @@ struct TaskRowView: View {
                                       date: "15/12/2023 6:30pm",
                                       description: "Do some groceries to BBQ",
                                       isComplete: false)
-    return TaskRowView(tableViewData: .constant(listDataModel))
+    return TaskRowView(taskIdx: 0)
+        .environmentObject(ListViewModel())
 }
-

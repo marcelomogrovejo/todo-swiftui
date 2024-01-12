@@ -23,9 +23,7 @@ struct RadioButton: View {
 
     var body: some View {
         Button {
-            print("Toggle \(isSet)")
             isSet.toggle()
-            
         } label: {
             Image(systemName: self.isSet ? Constants.filledState : Constants.regularState)
                 .renderingMode(.original)

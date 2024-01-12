@@ -43,7 +43,6 @@ class ListViewModel: ObservableObject, ListViewModelProtocol {
                                                       description: domainTask.description,
                                                       isComplete: domainTask.isCompleted)
                     tempTaskArr.append(listDataModel)
-                    print("\(domainTask.title) \(domainTask.isCompleted)")
                 } else {
                     print("Error bad item id, item won't be added to the list.")
                 }
