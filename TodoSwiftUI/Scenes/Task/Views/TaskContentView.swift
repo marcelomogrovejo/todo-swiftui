@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TaskContentView: View {
 
+    @Environment(\.dismiss) private var dismiss
+
     private let taskId: String?
 
     init(taskId: String?) {
@@ -16,6 +18,12 @@ struct TaskContentView: View {
     }
 
     @StateObject private var taskViewModel = TaskViewModel()
+
+    // MARK: - Focusing
+    enum FocusedField {
+        case title, description, date, time
+    }
+    @FocusState private var focusedField: FocusedField?
 
     // Can be used the old school to display and get date and time as in TodoMVP version
     /*
@@ -26,16 +34,16 @@ struct TaskContentView: View {
     }()
      */
 
-    @Environment(\.dismiss) private var dismiss
-
     var body: some View {
         NavigationStack {
             Form {
                 Section("Task") {
                     TextField("title", text: $taskViewModel.taskDataModel.title)
                         .autocorrectionDisabled()
+                        .focused($focusedField, equals: .title)
                     TextField("description", text: $taskViewModel.taskDataModel.description)
                         .autocorrectionDisabled()
+                        .focused($focusedField, equals: .description)
                 }
 
                 Section("Schedule") {
@@ -43,12 +51,15 @@ struct TaskContentView: View {
                                in: Date.now..., displayedComponents: .date) {
                         Text("Date")
                     }
+                               .focused($focusedField, equals: .date)
                     DatePicker(selection: $taskViewModel.taskDataModel.time,
                                displayedComponents: .hourAndMinute) {
                         Text("Time")
                     }
+                               .focused($focusedField, equals: .time)
                 }
 
+                // MARK: - Complete task just on edition
                 if let _ = taskId {
                     Section {
                         Toggle("Complete task?", isOn: $taskViewModel.taskDataModel.isDone)
@@ -60,20 +71,20 @@ struct TaskContentView: View {
             .navigationTitle("ToDo")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                // Left side button: Cancel
+                // MARK: - Left side button: Cancel
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {
                         self.dismiss()
                     }
                     .tint(Color.Button.foregroundColor)
                 }
-                // Right side button: Save
+                // MARK: - Right side button: Save
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
                         let taskDataModel = TaskDataModel(date: taskViewModel.taskDataModel.date,
                                                           time: taskViewModel.taskDataModel.time,
                                                           title: taskViewModel.taskDataModel.title,
-                                                          description: taskViewModel.taskDataModel.description, 
+                                                          description: taskViewModel.taskDataModel.description,
                                                           isDone: taskViewModel.taskDataModel.isDone)
                         Task {
                             do {
@@ -89,14 +100,17 @@ struct TaskContentView: View {
                               taskViewModel.taskDataModel.description.isEmpty)
                 }
             }
-            .toolbarBackground(Color.NavBar.backgroundColor, 
+            .toolbarBackground(Color.NavBar.backgroundColor,
                                for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-            .alert("Your task has been \(taskId != nil ? "updated" : "added").", isPresented: $taskViewModel.success) {
+            // MARK: - Confirmation popup
+            .alert("Your task has been \(taskId != nil ? "updated" : "added").", 
+                   isPresented: $taskViewModel.success) {
                 Button("OK") {
                     self.dismiss()
                 }
             }
+            // MARK: - onAppear
             .onAppear {
                 Task {
                     guard let taskId = self.taskId else { return }
@@ -106,6 +120,7 @@ struct TaskContentView: View {
                         print("Error \(error.localizedDescription)")
                     }
                 }
+                focusedField = .title
             }
         }
     }

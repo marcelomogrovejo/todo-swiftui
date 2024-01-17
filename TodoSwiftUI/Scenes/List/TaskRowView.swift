@@ -13,7 +13,6 @@ struct TaskRowView: View {
         static let defaultAvatarWidth: CGFloat = 30.0
         
         // TODO: implement font size
-        
         static let defaultTitleFontSize: CGFloat = 14.0
         static let defaultDateFontSize: CGFloat = 13.0
         static let defaultDescriptionFontSize: CGFloat = 12.0
@@ -21,11 +20,7 @@ struct TaskRowView: View {
 
     @EnvironmentObject var listViewModel: ListViewModel
 
-//    @Binding var tableViewData: ListDataModel
-    var taskIdx: Int
-    private var task: ListDataModel {
-        listViewModel.tasks[taskIdx]
-    }
+    @Binding var task: ListDataModel
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -33,10 +28,10 @@ struct TaskRowView: View {
                 Image(uiImage: .icnTaskCell)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: Constants.defaultAvatarWidth, 
+                    .frame(width: Constants.defaultAvatarWidth,
                            height: Constants.defaultAvatarWidth,
                            alignment: .topLeading)
-
+                
                 VStack(alignment: .leading) {
                     Text(task.title)
                         .font(.caption)
@@ -47,22 +42,31 @@ struct TaskRowView: View {
                         .bold()
                         .foregroundStyle(Color.Text.defaultColor)
                 }
-
+                
                 Spacer()
-
+                
                 /**
                  How to bind between parent/child, List/Row
                  https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-list-or-a-foreach-from-a-binding
                  */
-                RadioButton(isSet: $listViewModel.tasks[taskIdx].isComplete, size: 25)
+                RadioButton(isSet: $task.isComplete, size: 25)
                     .frame(width: Constants.defaultAvatarWidth)
                     .onChange(of: task.isComplete) {
+                        #if DEBUG
+                        print("\(task.title), isComplete: \(task.isComplete)")
+//                        print("idx: \(taskIdx)")
+                        #endif
                         Task {
-                            do {
-                                try await self.listViewModel.completeTask(self.task)
-                            } catch {
-                                // TODO: implement error handling
-                                print("Error: \(error.localizedDescription)")
+                            // TODO: WARNING !
+                            // Without this if we have a random behaviour that complete tasks randomly.
+                            if task.isComplete {
+                                do {
+//                                    let task = listViewModel.tasks[taskIdx]
+                                    try await self.listViewModel.completeTask(task)
+                                } catch {
+                                    // TODO: implement error handling
+                                    print("Error: \(error.localizedDescription)")
+                                }
                             }
                         }
                     }
@@ -84,6 +88,6 @@ struct TaskRowView: View {
                                       date: "15/12/2023 6:30pm",
                                       description: "Do some groceries to BBQ",
                                       isComplete: false)
-    return TaskRowView(taskIdx: 0)
+    return TaskRowView(task: .constant(listDataModel))
         .environmentObject(ListViewModel())
 }

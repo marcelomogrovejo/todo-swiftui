@@ -65,15 +65,15 @@ class ListViewModel: ObservableObject, ListViewModelProtocol {
             let success = try await apiService.deleteAsync(domainTodoTask)
             if success {
                 guard let taskToRemoveIndex = tasks.firstIndex(of: task) else {
-                    print("Error task to delete not found")
+                    print("Error: task to delete not found")
                     return
                 }
-                tasks.remove(at: taskToRemoveIndex)
+                self.tasks.remove(at: taskToRemoveIndex)
             } else {
-                print("Error success on deletioon \(success)")
+                print("Error unsuccess deletion: \(success)")
             }
         } catch {
-            print("Error \(error.localizedDescription)")
+            print("Error: \(error.localizedDescription)")
         }
     }
 

@@ -14,49 +14,72 @@ struct ListContentView: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var showDeleteConfirmationAlert = false
-    @State private var itemToRemove: ListDataModel? = nil
     @State private var showAddTask = false
     @State private var presentedTask: ListDataModel? = nil
     @State private var showNotCompletedOnly: Bool = false
 
-    // Filter completed tasks
-    var tasks: [ListDataModel] {
-        if showNotCompletedOnly {
-            return listViewModel.tasks.filter { !$0.isComplete }
-        } else {
-            return listViewModel.tasks
-        }
-    }
+    // MARK: - Filter completed tasks
+    // TODO: WARNING !
+//    var tasks: [ListDataModel] {
+//        if showNotCompletedOnly {
+//            return listViewModel.tasks.filter { !$0.isComplete }
+//        } else {
+//            return listViewModel.tasks
+//        }
+//    }
 
     var body: some View {
         NavigationStack {
             List {
-                ForEach(tasks.indices, id: \.self) { idx in
-                    TaskRowView(taskIdx: idx)
+                ForEach($listViewModel.tasks) { $task in
+                    TaskRowView(task: $task)
                         .swipeActions(allowsFullSwipe: false) {
-                        /**
-                         (role: .destructive) triggers the cell removing effect, so we can se a cell vanishing meanwhile the alert is shown.
-                         Then the cell appear suddenly behind the alert giving a bad user experience effect.
-                         Figure out how to trigger this destructive effect when we confirm deletion through alert.
-                         */
+                            // MARK: - Remove a task button
+                            /**
+                             (role: .destructive) triggers the cell removing effect, so we can se a cell vanishing meanwhile the alert is shown.
+                             Then the cell appear suddenly behind the alert giving a bad user experience effect.
+                             Figure out how to trigger this destructive effect when we confirm deletion through alert.
+                             */
                             Button/*(role: .destructive)*/ {
-                                self.itemToRemove = tasks[idx]
                                 self.showDeleteConfirmationAlert = true
                             } label: {
                                 Label("Delete", systemImage: "trash.fill")
                             }
                             .tint(.Button.removeBackgroundColor)
 
+                            // MARK: - Edit a task button
                             Button {
-                                self.presentedTask = tasks[idx]
+                                self.presentedTask = task
                             } label: {
                                 Label("Edit", systemImage: "square.and.pencil")
                             }
                             .tint(.Button.editBackgroundColor)
                         }
+                        // MARK: - Delete confirmation popup
+                        .confirmationDialog(
+                            Text("Are you sure you want to remove the task?"),
+                            isPresented: $showDeleteConfirmationAlert,
+                            titleVisibility: .visible) {
+                            Button("Delete", role: .destructive) {
+                                withAnimation {
+                                        self.deleteTask(task)
+                                }
+                            }
+                        }
                 }
+                /** 
+                 It just works when .swipeActions is not implemented.
+                 Prior iOS 15.x version
+                 */
+                /*
+                .onDelete { offsets in
+                    print("IndexSet: \(offsets)")
+                    listViewModel.indexToDelete = offsets.last ?? 0
+                }
+                 */
             }
             .environmentObject(listViewModel)
+            // MARK: - Edit task sheet popup
             .sheet(item: $presentedTask, onDismiss: {
                 // TODO: check it out if this is the correct way, repeat this code snippet
                 Task {
@@ -74,41 +97,46 @@ struct ListContentView: View {
             .toolbarBackground(Color.NavBar.backgroundColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
-                // Close sheet
+                // MARK: - Close tasks list button
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
+                    Button {
                         self.dismiss()
-                    }, label: {
+                    } label: {
                         Label(
                             title: { },
                             icon: { Image(systemName: "xmark") }
                         )
-                    })
+                    }
                     .tint(Color.Button.foregroundColor)
                 }
-                // Filter completed tasks
+                // MARK: - Filter completed tasks button
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showNotCompletedOnly.toggle()
                     } label: {
                         Label(
                             title: { },
-                            icon: { Image(systemName: showNotCompletedOnly ? "checkmark.circle.fill" : "checkmark.circle") }
+                            icon: {
+                                Image(systemName: showNotCompletedOnly ? 
+                                      "checkmark.circle.fill" :
+                                        "checkmark.circle")
+                            }
                         )
                     }
                     .tint(Color.Button.foregroundColor)
                 }
-                // Add new task
+                // MARK: - Add new task button
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
+                    Button {
                         showAddTask = true
-                    }, label: {
+                    } label: {
                         Label(
                             title: { },
                             icon: { Image(systemName: "plus") }
                         )
-                    })
+                    }
                     .tint(Color.Button.foregroundColor)
+                    // MARK: - Add new task sheet popup
                     .sheet(isPresented: $showAddTask, onDismiss: {
                         // TODO: check it out if this is the correct way, repeat this code snippet
                         Task {
@@ -126,7 +154,7 @@ struct ListContentView: View {
             //            .navigationDestination(for: ListDataModel.self) { listDataModel in
             //                TaskContentView(taskId: listDataModel.id.uuidString)
             //            }
-            
+            // MARK: - onAppear
             .task {
                 do {
                     try await self.listViewModel.getAllTasks()
@@ -134,28 +162,31 @@ struct ListContentView: View {
                     // TODO: implement alert/error ?
                 }
             }
-            .alert(isPresented: $showDeleteConfirmationAlert) {
-                Alert(title: Text("Delete Task"),
-                      message: Text("Are you sure you want to remove the task?"),
-                      primaryButton: .default(Text("Ok"), action: {
-                    Task {
-                        do {
-                            guard let itemToRemove = itemToRemove else { return }
-                            try await self.listViewModel.removeTask(itemToRemove)
-                        } catch {
-                            // TODO: implement alert/error ?
-                        }
-                    }
-                }), secondaryButton: .cancel(Text("Cancel")))
-            }
+            // MARK: - Empty content
             .overlay {
-                // Available on iOS 17.x
-                // https://www.avanderlee.com/swiftui/contentunavailableview-handling-empty-states/
-                if tasks.isEmpty {
+                /** 
+                 Empty view how to (Available on iOS 17.x)
+                 https://www.avanderlee.com/swiftui/contentunavailableview-handling-empty-states/
+                 */
+                // TODO: WARNING !
+//                if tasks.isEmpty {
+                if listViewModel.tasks.isEmpty {
                     ContentUnavailableView {
-                        Label("No uncompleted tasks.", systemImage: "checklist.checked")
+                        Label("Tasks not found.", systemImage: "checklist.checked")
                     }
                 }
+            }
+        }
+    }
+
+    // MARK: - Private methods
+
+    private func deleteTask(_ task: ListDataModel) {
+        Task {
+            do {
+                try await self.listViewModel.removeTask(task)
+            } catch {
+                // TODO: implement alert/error ?
             }
         }
     }
