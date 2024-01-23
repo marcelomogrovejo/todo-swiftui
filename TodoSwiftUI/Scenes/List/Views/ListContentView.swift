@@ -72,6 +72,7 @@ struct ListContentView: View {
                  */
             }
             .environmentObject(listViewModel)
+            .animation(.spring, value: listViewModel.filterTasks)
             // MARK: - Edit task sheet popup
             .sheet(item: $onEditionTask, onDismiss: {
                 // TODO: check it out if this is the correct way, repeat this code snippet
