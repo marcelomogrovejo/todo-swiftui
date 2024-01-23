@@ -21,6 +21,16 @@ class ListViewModel: ObservableObject, ListViewModelProtocol {
     // TODO: implement the PetShop factory ?
     private let apiService = ApiService()
 
+    // MARK: - Filter completed tasks
+    @Published var showPendingTasks: Bool = false
+    var filterTasks: [ListDataModel] {
+        if showPendingTasks {
+            return tasks.filter { !$0.isComplete }
+        } else {
+            return tasks
+        }
+    }
+
     /**
      "Methods or types marked with @MainActor can (for the most part) safely modify the UI because it will always be running on the main queue"
 
@@ -104,6 +114,27 @@ class ListViewModel: ObservableObject, ListViewModelProtocol {
         } catch {
             print("Error \(error.localizedDescription)")
         }
+    }
+
+    /**
+    Solved thanks to this post:
+     https://stackoverflow.com/questions/66017756/filtering-a-binding-array-var-in-a-foreach-in-swiftui-returns-values-based-on-u
+     */
+    // Filter completed tasks
+    func taskCompletedBinding(id: UUID) -> Binding<Bool> {
+        Binding<Bool>(get: {
+            self.tasks.first(where: { $0.id == id})?.isComplete ?? false
+        }, set: { newValue in
+            self.tasks = self.tasks.map { t in
+                if t.id == id {
+                    var tCopy = t
+                    tCopy.isComplete = newValue
+                    return tCopy
+                } else {
+                    return t
+                }
+            }
+        })
     }
 
     // MARK: - Mocks
