@@ -18,9 +18,13 @@ struct TaskRowView: View {
         static let defaultDescriptionFontSize: CGFloat = 12.0
     }
 
+    /** 
+     It is needed here to have access to
+     listViewModel.completeTask(_ task:)
+     **/
     @EnvironmentObject var listViewModel: ListViewModel
 
-    @Binding var task: ListDataModel
+    var task: ListDataModel
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -49,19 +53,17 @@ struct TaskRowView: View {
                  How to bind between parent/child, List/Row
                  https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-list-or-a-foreach-from-a-binding
                  */
-                RadioButton(isSet: $task.isComplete, size: 25)
+                RadioButton(isSet: listViewModel.taskCompletedBinding(id: task.id), size: 25)
                     .frame(width: Constants.defaultAvatarWidth)
                     .onChange(of: task.isComplete) {
                         #if DEBUG
                         print("\(task.title), isComplete: \(task.isComplete)")
-//                        print("idx: \(taskIdx)")
                         #endif
                         Task {
                             // TODO: WARNING !
                             // Without this if we have a random behaviour that complete tasks randomly.
                             if task.isComplete {
                                 do {
-//                                    let task = listViewModel.tasks[taskIdx]
                                     try await self.listViewModel.completeTask(task)
                                 } catch {
                                     // TODO: implement error handling
@@ -88,6 +90,6 @@ struct TaskRowView: View {
                                       date: "15/12/2023 6:30pm",
                                       description: "Do some groceries to BBQ",
                                       isComplete: false)
-    return TaskRowView(task: .constant(listDataModel))
+    return TaskRowView(task: listDataModel)
         .environmentObject(ListViewModel())
 }

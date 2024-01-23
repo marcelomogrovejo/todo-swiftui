@@ -13,26 +13,16 @@ struct ListContentView: View {
 
     @Environment(\.dismiss) private var dismiss
 
+    // TODO: move to listViewModel ???
     @State private var showDeleteConfirmationAlert = false
     @State private var showAddTask = false
-    @State private var presentedTask: ListDataModel? = nil
-    @State private var showNotCompletedOnly: Bool = false
-
-    // MARK: - Filter completed tasks
-    // TODO: WARNING !
-//    var tasks: [ListDataModel] {
-//        if showNotCompletedOnly {
-//            return listViewModel.tasks.filter { !$0.isComplete }
-//        } else {
-//            return listViewModel.tasks
-//        }
-//    }
+    @State private var onEditionTask: ListDataModel? = nil
 
     var body: some View {
         NavigationStack {
             List {
-                ForEach($listViewModel.tasks) { $task in
-                    TaskRowView(task: $task)
+                ForEach(listViewModel.filterTasks) { task in
+                    TaskRowView(task: task)
                         .swipeActions(allowsFullSwipe: false) {
                             // MARK: - Remove a task button
                             /**
@@ -49,13 +39,16 @@ struct ListContentView: View {
 
                             // MARK: - Edit a task button
                             Button {
-                                self.presentedTask = task
+                                self.onEditionTask = task
                             } label: {
                                 Label("Edit", systemImage: "square.and.pencil")
                             }
                             .tint(.Button.editBackgroundColor)
                         }
                         // MARK: - Delete confirmation popup
+                        /** It is recommedable to use .confirmationDialog toguether with .swipeActions to avoid synchronization issues.
+                         https://stackoverflow.com/questions/62720595/how-to-add-confirmation-to-ondelete-of-list-in-swiftui
+                         */
                         .confirmationDialog(
                             Text("Are you sure you want to remove the task?"),
                             isPresented: $showDeleteConfirmationAlert,
@@ -80,7 +73,7 @@ struct ListContentView: View {
             }
             .environmentObject(listViewModel)
             // MARK: - Edit task sheet popup
-            .sheet(item: $presentedTask, onDismiss: {
+            .sheet(item: $onEditionTask, onDismiss: {
                 // TODO: check it out if this is the correct way, repeat this code snippet
                 Task {
                     do {
@@ -112,14 +105,13 @@ struct ListContentView: View {
                 // MARK: - Filter completed tasks button
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        showNotCompletedOnly.toggle()
+                        listViewModel.showPendingTasks.toggle()
                     } label: {
                         Label(
                             title: { },
                             icon: {
-                                Image(systemName: showNotCompletedOnly ? 
-                                      "checkmark.circle.fill" :
-                                        "checkmark.circle")
+                                Image(systemName: listViewModel.showPendingTasks ?
+                                      "checkmark.circle" : "checkmark.circle.fill")
                             }
                         )
                     }
@@ -168,8 +160,6 @@ struct ListContentView: View {
                  Empty view how to (Available on iOS 17.x)
                  https://www.avanderlee.com/swiftui/contentunavailableview-handling-empty-states/
                  */
-                // TODO: WARNING !
-//                if tasks.isEmpty {
                 if listViewModel.tasks.isEmpty {
                     ContentUnavailableView {
                         Label("Tasks not found.", systemImage: "checklist.checked")
