@@ -72,6 +72,7 @@
 		BD3E81DB2B2B5B740075F5B2 /* ColorPalette.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorPalette.xcassets; sourceTree = "<group>"; };
 		BD3E81DD2B2B5B840075F5B2 /* UIColor+ColorPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorPalette.swift"; sourceTree = "<group>"; };
 		BD3E81E02B2B710C0075F5B2 /* MainButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonView.swift; sourceTree = "<group>"; };
+		BD73F7712C4F536D002B1DAB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BD744DFD2B2A071400BEB196 /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
 		BD744E072B2A176100BEB196 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		BD744E0C2B2A1A6A00BEB196 /* ani-todo-check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ani-todo-check.json"; sourceTree = "<group>"; };
@@ -208,6 +209,7 @@
 				BD1663D52B1CE2470090BCC6 /* TodoSwiftUIApp.swift */,
 				BD1663D92B1CE24A0090BCC6 /* Assets.xcassets */,
 				BD1663DB2B1CE24A0090BCC6 /* Preview Content */,
+				BD73F7712C4F536D002B1DAB /* README.md */,
 			);
 			path = TodoSwiftUI;
 			sourceTree = "<group>";
