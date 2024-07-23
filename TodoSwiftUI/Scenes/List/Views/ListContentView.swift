@@ -15,8 +15,17 @@ struct ListContentView: View {
 
     // TODO: move to listViewModel ???
     @State private var showDeleteConfirmationAlert = false
-    @State private var showAddTask = false
-    @State private var onEditionTask: ListDataModel? = nil
+    @State private var showAddTaskSheet = false
+    @State private var onEditingTask: ListDataModel? = nil
+
+    private struct Constants {
+        static let btnDeleteTitle = "Delete"
+        static let btnDeleteIconName = "trash.fill"
+        static let btnEditTitle = "Edit"
+        static let btnEditIconName = "square.and.pencil"
+        
+        
+    }
 
     var body: some View {
         NavigationStack {
@@ -33,15 +42,15 @@ struct ListContentView: View {
                             Button/*(role: .destructive)*/ {
                                 self.showDeleteConfirmationAlert = true
                             } label: {
-                                Label("Delete", systemImage: "trash.fill")
+                                Label(Constants.btnDeleteTitle, systemImage: Constants.btnDeleteIconName)
                             }
                             .tint(.Button.removeBackgroundColor)
 
                             // MARK: - Edit a task button
                             Button {
-                                self.onEditionTask = task
+                                self.onEditingTask = task
                             } label: {
-                                Label("Edit", systemImage: "square.and.pencil")
+                                Label(Constants.btnEditTitle, systemImage: Constants.btnEditIconName)
                             }
                             .tint(.Button.editBackgroundColor)
                         }
@@ -55,7 +64,7 @@ struct ListContentView: View {
                             titleVisibility: .visible) {
                             Button("Delete", role: .destructive) {
                                 withAnimation {
-                                        self.deleteTask(task)
+                                    self.deleteTask(task)
                                 }
                             }
                         }
@@ -74,11 +83,11 @@ struct ListContentView: View {
             .environmentObject(listViewModel)
             .animation(.spring, value: listViewModel.filterTasks)
             // MARK: - Edit task sheet popup
-            .sheet(item: $onEditionTask, onDismiss: {
+            .sheet(item: $onEditingTask, onDismiss: {
                 // TODO: check it out if this is the correct way, repeat this code snippet
                 Task {
                     do {
-                        try await self.listViewModel.getAllTasks()
+                        try await self.populateList()
                     } catch {
                         // TODO: implement alert/error ?
                     }
@@ -121,7 +130,7 @@ struct ListContentView: View {
                 // MARK: - Add new task button
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        showAddTask = true
+                        showAddTaskSheet = true
                     } label: {
                         Label(
                             title: { },
@@ -130,11 +139,11 @@ struct ListContentView: View {
                     }
                     .tint(Color.Button.foregroundColor)
                     // MARK: - Add new task sheet popup
-                    .sheet(isPresented: $showAddTask, onDismiss: {
+                    .sheet(isPresented: $showAddTaskSheet, onDismiss: {
                         // TODO: check it out if this is the correct way, repeat this code snippet
                         Task {
                             do {
-                                try await self.listViewModel.getAllTasks()
+                                try await self.populateList()
                             } catch {
                                 // TODO: implement alert/error ?
                             }
@@ -144,18 +153,19 @@ struct ListContentView: View {
                     }
                 }
             }
-            //            .navigationDestination(for: ListDataModel.self) { listDataModel in
-            //                TaskContentView(taskId: listDataModel.id.uuidString)
-            //            }
+//            .navigationDestination(for: ListDataModel.self) { listDataModel in
+//                TaskContentView(taskId: listDataModel.id.uuidString)
+//            }
             // MARK: - onAppear
             .task {
                 do {
-                    try await self.listViewModel.getAllTasks()
+                    try await self.populateList()
                 } catch {
                     // TODO: implement alert/error ?
                 }
             }
             // MARK: - Empty content
+            // TODO: implement spinner as well
             .overlay {
                 /** 
                  Empty view how to (Available on iOS 17.x)
@@ -171,6 +181,14 @@ struct ListContentView: View {
     }
 
     // MARK: - Private methods
+
+    private func populateList() async throws {
+        do {
+            try await self.listViewModel.getAllTasks()
+        } catch {
+            // TODO: implement alert/error ?
+        }
+    }
 
     private func deleteTask(_ task: ListDataModel) {
         Task {
