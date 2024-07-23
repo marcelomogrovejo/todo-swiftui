@@ -8,6 +8,10 @@
 import SwiftUI
 import TodoRepositoryPackage
 
+enum ListViewModelErrorType: Error, Comparable {
+    case justAnError
+}
+
 protocol ListViewModelProtocol: AnyObject {
     func getAllTasks() async throws
     func removeTask(_ task: ListDataModel) async throws
@@ -19,7 +23,7 @@ class ListViewModel: ObservableObject, ListViewModelProtocol {
     @Published var tasks: [ListDataModel] = []
 
     // TODO: implement the PetShop factory ?
-    private let apiService = ApiService()
+    var apiService: ApiServiceProtocol = ApiService()
 
     // MARK: - Filter completed tasks
     @Published var showPendingTasks: Bool = false
@@ -49,7 +53,7 @@ class ListViewModel: ObservableObject, ListViewModelProtocol {
                                                       username: domainTask.username,
                                                       title: domainTask.title,
                                                       // TODO: Warning !
-                                                      date: "\(domainTask.date)",
+                                                      date: domainTask.date.stringyfiedFullDate,
                                                       description: domainTask.description,
                                                       isComplete: domainTask.isCompleted)
                     tempTaskArr.append(listDataModel)
@@ -60,6 +64,7 @@ class ListViewModel: ObservableObject, ListViewModelProtocol {
             self.tasks = tempTaskArr.sorted(by: { $0.date.compare($1.date) == .orderedDescending })
         } catch {
             print("Error \(error.localizedDescription)")
+            throw ListViewModelErrorType.justAnError
         }
     }
 
@@ -96,6 +101,7 @@ class ListViewModel: ObservableObject, ListViewModelProtocol {
                                                       title: task.title,
                                                       date: task.date.fullFormattedDate,
                                                       description: task.description,
+                                                      /// isCompleted doesn't care here cz completeTaskAsync() will do the job
                                                       isCompleted: true)
             let completedDomainItem = try await apiService.completeTaskAsync(domainItemToComplete)
             guard let taskToRefreshIndex = tasks.firstIndex(of: task) else {
