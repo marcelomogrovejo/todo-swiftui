@@ -47,18 +47,16 @@ In order to delete a task you should swipe left the task item on the list and ta
 * ToDoSwiftUI project is implemented using the <strong>Model-View-ViewModel (MVVM)</strong> architecture pattern.
 
 * Model has any necessary data structure needed to generate the task.
-* ViewModel
-* View is responsible for displaying the task form to be filled by the user.
-
-* Controller handles any user input or interactions and update the Model and View as needed.
+* ViewModel is bridge between the Model and the View. It provides data and behavior to the View, allowing it to bind directly to the ViewModel properties and commands.
+* View is responsible for displaying the user interface to the end user. It receives input from the user and presents the data provided by the ViewModel.
 * Project doesn't have a local database.<br><br>
 
 # Structure 
-* "Resources": Non-code files that are needed across the project. Sush as images, animations, adio files, and other types of assets.
-* "Extension": Extensions that are needed across multiple sections of the project. Such as date to string converters, ui extensions, among others..
-* "Assets": Image files that are used by the project. This includes a uiimage extension that helps to include those images into the app without depending on the file names. 
+* "Extension": Extensions that are needed across multiple sections of the project. Such as date to string converters among others.
+* "UIComponents": Generic components needed across the project's views. Such as radio button and main button.
 * "ColorPalette": Color scheme assets used by the project. This includes a uicolor extension that helps to include those into the app without depending on the names.
-* "Scene": Main folder of the app that includes the sections. Such as Task, List and Main. Each one has the same structure such as View, Model, Presenter, Factory, Router among others.
+* "Resources": Non-code files that are needed across the project. Sush as images, animations, adio files, and other types of assets.
+* "Scene": Main folder of the app that includes the sections. Such as Task, List and Main. Each one has the same structure such as View, Model and ViewModel.
 
 # Running the tests
 <p>The ToDoSwiftUI project can be tested using the built-in framework XCTest.<br>
