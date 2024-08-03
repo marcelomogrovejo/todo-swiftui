@@ -118,7 +118,7 @@ Marcel Mogrovejo – [Porfolio](https://marcelomogrovejo.gitlab.io/my-ios-portfo
 
 Distributed under the MIT license. See ``LICENSE`` for more information.
 
-[https://github.com/marcelomogrovejo/todo-swiftui](https://github.com/marcelomogrovejo/todo-swiftui)
+[https://github.com/marcelomogrovejo/](https://github.com/marcelomogrovejo/)
 
 
 [swift-image]:https://img.shields.io/badge/swift-5.0-orange.svg
