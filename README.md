@@ -13,7 +13,7 @@
 
 <br />
 <p align="center">
-  <a href="https://github.com/marcelomogrovejo/todo-swiftui/Resources/">
+  <a href="https://github.com/marcelomogrovejo/todo-swiftui/">
     <img src="logo-to-do-list.png" alt="Logo" width="80" height="80">
   </a>
   <p align="center">

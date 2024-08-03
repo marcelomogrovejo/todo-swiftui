@@ -32,6 +32,7 @@
 		BD7756852B38915D00387BD1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7756842B38915D00387BD1 /* Task.swift */; };
 		BD7756882B38927600387BD1 /* Date+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7756872B38927600387BD1 /* Date+String.swift */; };
 		BD77568A2B38927A00387BD1 /* String+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7756892B38927A00387BD1 /* String+Date.swift */; };
+		BD7E67112C5E578B0010CB68 /* logo-to-do-list.png in Resources */ = {isa = PBXBuildFile; fileRef = BD7E67102C5E578B0010CB68 /* logo-to-do-list.png */; };
 		BD960B242B39346400F5FA15 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD960B232B39346400F5FA15 /* TaskViewModel.swift */; };
 		BDEF53922B43BDEF0031F14E /* TodoRepositoryPackage in Frameworks */ = {isa = PBXBuildFile; productRef = BDEF53912B43BDEF0031F14E /* TodoRepositoryPackage */; };
 /* End PBXBuildFile section */
@@ -81,6 +82,7 @@
 		BD7756842B38915D00387BD1 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		BD7756872B38927600387BD1 /* Date+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+String.swift"; sourceTree = "<group>"; };
 		BD7756892B38927A00387BD1 /* String+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Date.swift"; sourceTree = "<group>"; };
+		BD7E67102C5E578B0010CB68 /* logo-to-do-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-to-do-list.png"; sourceTree = "<group>"; };
 		BD960B232B39346400F5FA15 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,6 +184,7 @@
 		BD1663C92B1CE2470090BCC6 = {
 			isa = PBXGroup;
 			children = (
+				BD7E67102C5E578B0010CB68 /* logo-to-do-list.png */,
 				BD73F7722C4F541E002B1DAB /* README.md */,
 				BD1663D42B1CE2470090BCC6 /* TodoSwiftUI */,
 				BD1663E52B1CE24A0090BCC6 /* TodoSwiftUITests */,
@@ -478,6 +481,7 @@
 				BD1663DA2B1CE24A0090BCC6 /* Assets.xcassets in Resources */,
 				BD744E0D2B2A1A6A00BEB196 /* ani-todo-check.json in Resources */,
 				BD3E81DC2B2B5B740075F5B2 /* ColorPalette.xcassets in Resources */,
+				BD7E67112C5E578B0010CB68 /* logo-to-do-list.png in Resources */,
 				BD122F182B37267A00C7ECBE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
