@@ -116,7 +116,7 @@ We would love you for the contribution to **ToDoSwiftUI**, check the ``LICENSE``
 
 Marcel Mogrovejo – [Porfolio](https://marcelomogrovejo.gitlab.io/my-ios-portfolio/) – marcelo.mogrovejo@gmail.com
 
-Distributed under the MIT license. See ``LICENSE.md`` for more information.
+Distributed under the MIT license. See ``LICENSE`` for more information.
 
 [https://github.com/marcelomogrovejo/todo-swiftui](https://github.com/marcelomogrovejo/todo-swiftui)
 
