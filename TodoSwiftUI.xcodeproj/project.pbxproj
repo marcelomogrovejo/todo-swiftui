@@ -83,6 +83,7 @@
 		BD7756872B38927600387BD1 /* Date+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+String.swift"; sourceTree = "<group>"; };
 		BD7756892B38927A00387BD1 /* String+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Date.swift"; sourceTree = "<group>"; };
 		BD7E67102C5E578B0010CB68 /* logo-to-do-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-to-do-list.png"; sourceTree = "<group>"; };
+		BD7E67132C5E9A870010CB68 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		BD960B232B39346400F5FA15 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -184,6 +185,7 @@
 		BD1663C92B1CE2470090BCC6 = {
 			isa = PBXGroup;
 			children = (
+				BD7E67132C5E9A870010CB68 /* LICENSE.md */,
 				BD7E67102C5E578B0010CB68 /* logo-to-do-list.png */,
 				BD73F7722C4F541E002B1DAB /* README.md */,
 				BD1663D42B1CE2470090BCC6 /* TodoSwiftUI */,
