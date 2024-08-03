@@ -1,0 +1,33 @@
+{
+  "originHash" : "8958d196c8c1f0d7da35a474518856a7113b7ef2f62be040ecb5e6c7e6a0da1b",
+  "pins" : [
+    {
+      "identity" : "lottie-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/airbnb/lottie-ios.git",
+      "state" : {
+        "revision" : "b4bd0604ded9574807f41b4004b57dd1226a30a4",
+        "version" : "3.5.0"
+      }
+    },
+    {
+      "identity" : "petshopanimationpackage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.com/marcelomogrovejo/petshopanimationpackage.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "cbc9bec2d9e30f8d999640e332801fbcbd701ec3"
+      }
+    },
+    {
+      "identity" : "todorepositorypackage",
+      "kind" : "remoteSourceControl",
+      "location" : "git@gitlab.com:marcelomogrovejo/todorepositorypackage.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "19b80c06fed09982d7d9bcfd653e40f1a49ae633"
+      }
+    }
+  ],
+  "version" : 3
+}
