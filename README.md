@@ -28,7 +28,7 @@ The project consists of a simple list of tasks which the user can delete, edit a
 # Getting started
 <p>
 1. Make sure you have the Xcode version 14.0 or above installed on your computer.<br>
-2. Download the ToDoMVP project files from the repository.<br>
+2. Download the ToDoSwiftUI project files from the repository.<br>
 3. Open the project files in Xcode.<br>
 4. Make sure the TodoRepositoryPackage, PetShopAnimationPackage and Lottie Swift Packages are downloaded successfully.<br>
 5. Run the active scheme.<br>
@@ -44,10 +44,12 @@ In order to edit an existing task you should swipe left the task item on the lis
 In order to delete a task you should swipe left the task item on the list and tap the "Delete" button.<br>
 
 # Architecture
-* ToDoMVP project is implemented using the <strong>Model-View-Presenter (MVP)</strong> architecture pattern.
+* ToDoSwiftUI project is implemented using the <strong>Model-View-ViewModel (MVVM)</strong> architecture pattern.
 
 * Model has any necessary data structure needed to generate the task.
+* ViewModel
 * View is responsible for displaying the task form to be filled by the user.
+
 * Controller handles any user input or interactions and update the Model and View as needed.
 * Project doesn't have a local database.<br><br>
 
@@ -59,8 +61,8 @@ In order to delete a task you should swipe left the task item on the list and ta
 * "Scene": Main folder of the app that includes the sections. Such as Task, List and Main. Each one has the same structure such as View, Model, Presenter, Factory, Router among others.
 
 # Running the tests
-<p>The ToDoMVP project can be tested using the built-in framework XCTest.<br>
-To start testing the project, you will need to change to the 'TodoMVPTests' target in your Xcode project, and then just run the tests project.</p>
+<p>The ToDoSwiftUI project can be tested using the built-in framework XCTest.<br>
+To start testing the project, you will need to change to the 'ToDoSwiftUITests' target in your Xcode project, and then just run the tests project.</p>
 
 # Deployment
 Keep in mind that deploying an iOS app to the App Store requires having an Apple Developer account.
@@ -82,7 +84,7 @@ List of dependencies:
 # Workflow
 
 * Reporting bugs:<br> 
-If you come across any issues while using the ToDoMVP app, please report them by creating a new issue on the GitHub repository.
+If you come across any issues while using the ToDoSwiftUI app, please report them by creating a new issue on the GitHub repository.
 
 * Reporting bugs form: <br> 
 ```
@@ -100,4 +102,4 @@ please make sure that your changes are well-tested and that your code adheres to
 If you notice any errors or areas of improvement in the documentation, feel free to submit a pull request with your changes.
 
 * Providing feedback:<br> 
-If you have any feedback or suggestions for the ToDoMVP project, please let us know by creating a new issue or by sending an email to the project maintainer.
+If you have any feedback or suggestions for the ToDoSwiftUI project, please let us know by creating a new issue or by sending an email to the project maintainer.
