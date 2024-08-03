@@ -116,7 +116,7 @@ We would love you for the contribution to **ToDoSwiftUI**, check the ``LICENSE``
 
 Marcel Mogrovejo – [Porfolio](https://marcelomogrovejo.gitlab.io/my-ios-portfolio/) – marcelo.mogrovejo@gmail.com
 
-Distributed under the MIT license. See ``LICENSE`` for more information.
+Distributed under the MIT license. See ``LICENSE.md`` for more information.
 
 [https://github.com/marcelomogrovejo/todo-swiftui](https://github.com/marcelomogrovejo/todo-swiftui)
 
@@ -124,7 +124,7 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 [swift-image]:https://img.shields.io/badge/swift-5.0-orange.svg
 [swift-url]: https://swift.org/
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
-[license-url]: LICENSE
+[license-url]: LICENSE.md
 [codebeat-image]: https://codebeat.co/badges/c19b47ea-2f9d-45df-8458-b2d952fe9dad
 [codebeat-url]: https://codebeat.co/projects/github-com-vsouza-awesomeios-com
 [pr-welcome-image]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
